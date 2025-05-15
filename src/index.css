@@ -1,0 +1,79 @@
+@import "tailwindcss";
+
+/* Keyframes for rotating the gradient background */
+@keyframes rotate-gradient {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Animation utility class to apply rotation infinitely */
+.animate-rotate-gradient {
+  animation: rotate-gradient 10s linear infinite;
+}
+
+/* Animated gradient border */
+.animated-gradient-border {
+  position: relative;
+  padding: 4px; /* Border thickness */
+  border-radius: 1rem;
+  background: conic-gradient(
+    from 10deg,
+    #ff6f61,
+    #00bcd4,
+    #ffc107,
+    #8bc34a,
+    #673ab7,
+    #ff6f61
+  );
+  overflow: hidden;
+}
+
+/* Add rotating effect via pseudo-element */
+.animated-gradient-border::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0; /* Background */
+  animation: rotate-gradient 10s linear infinite;
+  background: conic-gradient(
+    from 10deg,
+    #ff6f61,
+    #00bcd4,
+    #ffc107,
+    #8bc34a,
+    #673ab7,
+    #ff6f61
+  );
+  border-radius: inherit;
+  padding: 4px;
+}
+
+.inner-mask {
+  position: relative;
+  z-index: 10; /* On top of gradient */
+  background-color: black; /* Or any background */
+  width: 100%;
+  height: 100%;
+  border-radius: 0.875rem;
+  overflow: hidden;
+}
+
+/* Image or content inside the border */
+.animated-gradient-border > .inner-mask > img,
+.animated-gradient-border > .inner-mask > .content {
+  border-radius: 0.75rem;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.7s ease;
+}
+
+/* Hover zoom effect */
+.animated-gradient-border > .inner-mask > img:hover,
+.animated-gradient-border > .inner-mask > .content:hover {
+  transform: scale(1.05);
+}
